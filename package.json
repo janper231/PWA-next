@@ -1,0 +1,24 @@
+{
+    "name": "pwa",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "node server.js",
+        "build": "next build",
+        "start": "NODE_ENV=production node server.js",
+        "export": "next export"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@material-ui/core": "^3.9.3",
+        "@material-ui/icons": "^3.0.2",
+        "mui-datatables": "^2.0.0",
+        "next": "^8.1.0",
+        "next-offline": "^3.3.8",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6"
+    }
+}
