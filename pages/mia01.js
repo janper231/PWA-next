@@ -4,10 +4,7 @@ import MUIDataTable from "mui-datatables";
 
 class Mia01 extends React.Component {
   render() {
-
-    
     const columns = ["Name", "Title", "Location", "Age", "Salary"];
-
     const data = [
       ["Gabby George", "Business Analyst", "Minneapolis", 30, "$100,000"],
       ["Aiden Lloyd", "Business Consultant", "Dallas", 55, "$200,000"],
@@ -58,12 +55,10 @@ class Mia01 extends React.Component {
       ],
       ["Mason Ray", "Computer Scientist", "San Francisco", 39, "$142,000"]
     ];
-
     const options = {
       filterType: "dropdown",
       responsive: "scroll"
     };
-
     return (
       <MUIDataTable
         title={"ACME Employee list"}

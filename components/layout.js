@@ -20,8 +20,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
 
-
-
+//libs
 import Menu from '../libs/Menu'
 
 const drawerWidth = 240;
@@ -61,9 +60,7 @@ const styles = theme => ({
 class ResponsiveDrawer extends React.Component {
   state = {
     mobileOpen: false,
-    open: true,
   };
-
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
@@ -94,7 +91,7 @@ class ResponsiveDrawer extends React.Component {
                   <ListItem button key={n + "menu"} onClick={this.handleClick}>
                     {React.createElement(node.icon)}
                     <ListItemText inset primary={node.title} />
-                    {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                    {this.state[node.dropdown] ? <ExpandLess /> : <ExpandMore />}
                   </ListItem>
                   {node.nodes.map((subnode, n) => {
                     return (
