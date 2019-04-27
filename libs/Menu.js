@@ -11,7 +11,7 @@ const Menu = [
         {title:"14",component:"mia14",icon:InboxIcon},
         {title:"06",component:"mia06",icon:InboxIcon},
     ]},
-    {title:"Configuracion",dropdown:"dropdow1",icon:InboxIcon,nodes:[
+    {title:"Configuracion",dropdown:"dropdow2",icon:InboxIcon,nodes:[
         {title:"09",component:"mia09",icon:InboxIcon},
         {title:"10",component:"mia10",icon:InboxIcon},
         {title:"20",component:"mia20",icon:InboxIcon},

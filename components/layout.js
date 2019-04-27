@@ -8,9 +8,7 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -27,7 +25,7 @@ const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
-    display: 'flex',
+    //display: 'flex',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -60,54 +58,60 @@ const styles = theme => ({
 class ResponsiveDrawer extends React.Component {
   state = {
     mobileOpen: false,
-  };
+  }
+
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
-  handleClick = () => {
-    this.setState(state => ({ open: !state.open }));
+  handleClick = (e) => {
+    this.setState(state => ({ [e]: !state[e] }));
   };
+
   render() {
     const { classes, theme, children } = this.props;
     const drawer = (
       <div>
-        <div className={classes.toolbar} />
+        <div className={classes.toolbar} >
+          <Typography variant="h5" color="inherit">
+            Responsive drawer
+            </Typography>
+        </div>
         <Divider />
-        <List>
+        <List key={"list"}>
           {Menu.map((node, n) => {
             if (node.nodes === undefined) {
               return (
                 <Link href={"/" + node.component} key={n + "link"}>
                   <ListItem button key={n + "menu"}>
                     {React.createElement(node.icon)}
-                    <ListItemText primary={node.title} />
+                    <ListItemText inset primary={node.title} />
                   </ListItem>
                 </Link>
               )
             } else {
               return (
-                <>
-                  <ListItem button key={n + "menu"} onClick={this.handleClick}>
+                <div key={"div"+n}>
+                  <ListItem button key={n + "menu"} onClick={this.handleClick.bind(null, node.dropdown)}>
                     {React.createElement(node.icon)}
                     <ListItemText inset primary={node.title} />
                     {this.state[node.dropdown] ? <ExpandLess /> : <ExpandMore />}
                   </ListItem>
-                  {node.nodes.map((subnode, n) => {
-                    return (
-                      <Link href={"/" + subnode.component} key={n + "sublink"}>
-                        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-                          <List key={n + "list"} component="div" disablePadding>
-                            <ListItem button>
+                  <Collapse key={node.dropdown} in={this.state[node.dropdown]} timeout="auto" unmountOnExit>
+                    <List key={n} component="div" disablePadding>
+                      {node.nodes.map((subnode, n) => {
+                        return (
+                          <Link href={"/" + subnode.component} key={n + "sublink"}>
+                            <ListItem button key={n + "submenu"}>
                               {React.createElement(node.icon)}
                               <ListItemText inset primary={subnode.title} />
                             </ListItem>
-                          </List>
-                        </Collapse>
-                      </Link>
-                    )
-                  })}
-                </>
+                          </Link>
+                        )
+                      })}
+                    </List>
+                  </Collapse>
+                </div>
               )
             }
           })}
@@ -171,8 +175,6 @@ class ResponsiveDrawer extends React.Component {
 
 ResponsiveDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
-  // Injected by the documentation to work in an iframe.
-  // You won't need it on your project.
   container: PropTypes.object,
   theme: PropTypes.object.isRequired,
 };
