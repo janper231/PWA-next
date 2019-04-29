@@ -1,5 +1,4 @@
 import { Component } from "react";
-import axios from 'axios'
 import Table from "../components/Table"
 class Mia08 extends Component {
     state = {
