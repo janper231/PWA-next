@@ -71,7 +71,7 @@ class Login extends React.Component {
                 if (result.status === 200 && result.data.flag == true) {
                     localStorage.setItem("Token", result.data.data);
                     console.log(result.data.msg)
-                    Router.push('/')
+                    Router.replace('/') 
                 } else {
                     console.log(result.data.msg)
                     //openSnackbar({ message: result.data.msg, type: 'error' });

@@ -1,7 +1,9 @@
-import React from 'react'
+import React,{Component} from 'react'
 
-function Index (){
-    return <div>Hola indexxxx </div>
+class Index extends Component {
+    
+    render(){
+        return <h1>soy el index</h1>
+    }
 }
-
 export default Index
