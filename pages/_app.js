@@ -28,14 +28,14 @@ export default class MyApp extends App {
     if (localStorage.getItem("Token") === null) {
       Router.replace("/login")
     } else {
-      Router.replace("/")
+      Router.push("/")
     }
   }
 
   render() {
     const { Component, pageProps, router } = this.props
     if (this.state.token !== null && router.pathname === "/login") {
-      Router.replace("/")
+      Router.push("/")
     }
     if (this.state.token === null && router.pathname === "/login") {
       return (
