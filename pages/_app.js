@@ -2,9 +2,8 @@ import App, { Container } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
 import axios from 'axios';
-import Router, { Redirect } from 'next/router'
 //components
-import Layout from '../components/layout'
+import Auth from '../components/Auth'
 
 axios.defaults.baseURL = 'https://desarrollo.syseu.com/KumbiaPHP';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -23,42 +22,17 @@ export default class MyApp extends App {
     return { pageProps }
   }
 
-  componentDidMount() {
-    this.setState({ token: localStorage.getItem("Token") });
-    if (localStorage.getItem("Token") === null) {
-      Router.replace("/login")
-    } else {
-      Router.push("/")
-    }
-  }
-
   render() {
     const { Component, pageProps, router } = this.props
-    if (this.state.token !== null && router.pathname === "/login") {
-      Router.push("/")
-    }
-    if (this.state.token === null && router.pathname === "/login") {
-      return (
-        <Container>
-          <Head>
-            <title>Test</title>
-          </Head>
-          <Component {...pageProps} />
-        </Container>
-      )
-    } else if (this.state.token !== null) {
-      return (
-        <Container>
-          <Head>
-            <title>Test</title>
-          </Head>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </Container>
-      )
-    } else {
-      return "Loadin....."
-    }
+    return (
+      <Container>
+        <Head>
+          <title>Test</title>
+        </Head>
+        <Auth props={this.props}>
+         <Component {...pageProps} />
+        </Auth>
+      </Container>
+    )
   }
 }

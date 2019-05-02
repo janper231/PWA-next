@@ -14,9 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import axios from 'axios';
-import { openSnackbar } from "../components/Msg";
 import Router from 'next/router'
-
 
 
 const styles = theme => ({
@@ -70,9 +68,10 @@ class Login extends React.Component {
             .then((result) => {
                 if (result.status === 200 && result.data.flag == true) {
                     localStorage.setItem("Token", result.data.data);
-                    console.log(result.data.msg)
-                    Router.replace('/') 
+                    location.reload()
+                    Router.push('/') 
                 } else {
+                    <Msg/>
                     console.log(result.data.msg)
                     //openSnackbar({ message: result.data.msg, type: 'error' });
                 }

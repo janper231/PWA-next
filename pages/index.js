@@ -1,9 +1,12 @@
 import React,{Component} from 'react'
+import {Msg} from '../components/Msg'
 
 class Index extends Component {
     
     render(){
-        return <h1>soy el index</h1>
+        return(
+            "Index...."
+        ) 
     }
 }
 export default Index
