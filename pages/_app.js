@@ -1,10 +1,9 @@
 import App, { Container } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
-import axios from 'axios';
+import axios from 'axios'
 //components
 import Auth from '../components/Auth'
-
 axios.defaults.baseURL = 'https://desarrollo.syseu.com/KumbiaPHP';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded';

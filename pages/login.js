@@ -15,7 +15,9 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import axios from 'axios';
 import Router from 'next/router'
-
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+import Msg from '../components/Notistack'
 
 const styles = theme => ({
     main: {
@@ -56,6 +58,11 @@ class Login extends React.Component {
         this.state = {
             user: "",
             password: "",
+            loadmsg:false,
+            msg:{
+                msg:"",
+                type:"",
+            }
         };
     }
 
@@ -67,27 +74,29 @@ class Login extends React.Component {
         })
             .then((result) => {
                 if (result.status === 200 && result.data.flag == true) {
-                    localStorage.setItem("Token", result.data.data);
-                    location.reload()
+                    cookies.set('Token', result.data.data, { path: '/', maxAge: 3600});
                     Router.push('/') 
                 } else {
-                    <Msg/>
-                    console.log(result.data.msg)
+                    this.state.msg.msg=result.data.msg;
+                    this.state.msg.type = "error";
+                    this.setState({loadmsg:!this.state.loadmsg})
                     //openSnackbar({ message: result.data.msg, type: 'error' });
                 }
             })
             .catch((error) => {
+                console.log(error)
                 //openSnackbar({ message: "Error al consultar", type: 'error' });
             });
     }
 
     handleChange = name => event => {
         this.state[name] = event.target.value
-        //this.setState({ [name]: event.target.value })
     };
 
     render() {
         const { classes } = this.props;
+        const {msg,type} =this.state.msg
+        console.log(this.state)
         return (
             <main className={classes.main}>
                 <CssBaseline />
@@ -133,6 +142,7 @@ class Login extends React.Component {
                     </Button>
                     </form>
                 </Paper>
+                <Msg msg={msg} type={type} />
             </main>
         )
     }

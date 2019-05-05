@@ -1,7 +1,9 @@
 import { Component } from 'react'
-import Router, { Redirect } from 'next/router'
+import Router from 'next/router'
 import Layout from '../components/layout'
 import { SnackbarProvider } from 'notistack';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 class Auth extends Component {
     constructor(props) {
@@ -11,33 +13,37 @@ class Auth extends Component {
         }
     }
     componentDidMount() {
-        this.setState({ Token: localStorage.getItem("Token") })
-        if (localStorage.getItem("Token") === null) {
+        if (cookies.get('Token') === undefined) {
             Router.replace("/login")
         } else {
             Router.push("/")
         }
     }
+    componentWillUpdate() {
+        if (cookies.get('Token') === undefined && this.props.props.router.pathname !== "/login") {
+            Router.push("/login")
+        }
+    }
     render() {
         const { children, props } = this.props;
-        console.log(this.props)
-        if (this.state.Token === null && props.router.pathname === "/login") {
+        if (cookies.get('Token') === undefined && props.router.pathname === "/login") {
             return (
-                <SnackbarProvider maxSnack={5}>
+                <SnackbarProvider maxSnack={2}>
                     {children}
                 </SnackbarProvider>
             )
-        } else if (this.state.Token !== null && props.router.pathname !== "/login") {
+        } else if (cookies.get('Token') !== undefined && props.router.pathname !== "/login") {
             return (
-                <SnackbarProvider maxSnack={5}>
+                <SnackbarProvider maxSnack={3}>
                     <Layout>
                         {children}
                     </Layout>
                 </SnackbarProvider>
-
             )
         } else {
-            return "Loading..."
+            return (
+                <h2>Loading....</h2>
+            )
         }
     }
 }
