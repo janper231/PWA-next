@@ -5,7 +5,7 @@ class Notistack extends React.Component {
   render() {
       const {msg, type} = this.props
       if(type!==""){
-        this.props.enqueueSnackbar(msg,{variant:type});
+        this.props.enqueueSnackbar(msg,{variant:type, autoHideDuration:1000});
       }
     return ""
   }
